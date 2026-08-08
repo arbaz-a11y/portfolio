@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const d = project.data;
+const statusLabel = d.status === 'deployed' ? 'Deployed' : 'In Progress';
+const statusDot = d.status === 'deployed' ? 'dot-green' : 'dot-amber';
+---
+
+<article class:list={['card', { featured: d.featured }]}>
+  <div class="card-top">
+    <h3>{d.title}</h3>
+    <span class="chip"><span class:list={['dot', statusDot]}></span>{statusLabel}</span>
+  </div>
+
+  <p class="desc">{d.description}</p>
+
+  <p class="mywork"><strong>What I did:</strong> {d.myWork}</p>
+
+  {d.metrics && <p class="mywork"><strong>Impact:</strong> {d.metrics}</p>}
+
+  <div class="card-tags">
+    {d.tags.map((tag) => <span class="chip">{tag}</span>)}
+  </div>
+
+  <div class="card-top">
+    {d.github ? <a class="card-link" href={d.github} target="_blank" rel="noopener">GitHub ↗</a> : <span></span>}
+    {d.demo && <a class="card-link" href={d.demo} target="_blank" rel="noopener">Live demo ↗</a>}
+  </div>
+</article>

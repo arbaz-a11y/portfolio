@@ -1,0 +1,17 @@
+---
+import { site } from '../config';
+---
+
+<section class="section container contact reveal" id="contact">
+  <p class="eyebrow">ssh contact@{site.terminal.split('@')[1] ?? 'devbox'}</p>
+  <h2>Let's build together.</h2>
+  <p class="contact-mono">mailto / github / linkedin</p>
+  <p class="availability">● {site.availability}</p>
+
+  <div class="contact-actions">
+    <a class="btn btn-primary" href={`mailto:${site.email}`}>Email me</a>
+    <a class="btn" href={site.github} target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href={site.resume} download>Resume</a>
+  </div>
+</section>

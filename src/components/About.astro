@@ -1,0 +1,13 @@
+---
+import { about } from '../config';
+---
+
+<section class="section container reveal" id="about">
+  <p class="eyebrow">cat about.txt</p>
+  <div class="section-head">
+    <h2>About Me</h2>
+  </div>
+  <div class="prose">
+    {about.map((p) => <p>{p}</p>)}
+  </div>
+</section>

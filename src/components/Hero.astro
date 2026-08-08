@@ -1,0 +1,24 @@
+---
+import { site } from '../config';
+import TerminalWindow from './TerminalWindow.astro';
+---
+
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="hero-badge">
+        <span class="chip"><span class="dot dot-green"></span>{site.availability}</span>
+      </div>
+
+      <h1>{site.name}</h1>
+      <p class="tagline">{site.tagline}</p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#projects">See my work</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <TerminalWindow />
+  </div>
+</section>

@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+
+const fmt = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<section class="section container reveal" id="blog">
+  <p class="eyebrow">tail -f blog.log</p>
+  <div class="section-head">
+    <h2>Blog</h2>
+    <p>Notes from building — writing as I learn.</p>
+  </div>
+
+  <div class="post-list">
+    {
+      posts.map((post) => (
+        <a class="post-card" href={`${base}blog/${post.id}/`}>
+          <span class="date">{fmt.format(post.data.pubDate)}</span>
+          <h3>{post.data.title}</h3>
+          <p>{post.data.description}</p>
+        </a>
+      ))
+    }
+  </div>
+
+  <p style="margin-top:1.75rem">
+    <a class="card-link" href={`${base}blog/`}>All posts →</a>
+  </p>
+</section>

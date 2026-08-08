@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { projectGroups } from '../config';
+import ProjectCard from './ProjectCard.astro';
+
+const projects = await getCollection('projects');
+
+const byGroup = (key: string) =>
+  projects
+    .filter((p) => p.data.group === key)
+    .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<section class="section container reveal" id="projects">
+  <p class="eyebrow">ls ~/projects</p>
+  <div class="section-head">
+    <h2>Deployed Architecture</h2>
+    <p>Projects grouped by theme — the ones that matter most first.</p>
+  </div>
+
+  {
+    projectGroups.map((group) => {
+      const items = byGroup(group.key);
+      if (items.length === 0) return null;
+      return (
+        <div class="group">
+          <h3 class="group-label">{group.label}</h3>
+          <div class="grid-2">
+            {items.map((p) => <ProjectCard project={p} />)}
+          </div>
+        </div>
+      );
+    })
+  }
+</section>

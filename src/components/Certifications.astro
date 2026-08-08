@@ -1,0 +1,42 @@
+---
+import { certifications } from '../config';
+
+// Show up to 3 "earned cert" slots. Real certs come from config; empty slots
+// are placeholders so the section reads as "in progress," not "empty."
+const slots = Math.max(3 - certifications.earned.length, 0);
+---
+
+<section class="section container reveal" id="certifications">
+  <p class="eyebrow">ls ~/certs</p>
+  <div class="section-head">
+    <h2>Certifications</h2>
+    <p>Completed certs — plus what I'm working toward.</p>
+  </div>
+
+  <div class="cert-row">
+    {certifications.pursuing.map((name) => (
+      <div class="cert-card pursuing">
+        <div class="cert-top">
+          <span class="chip"><span class="dot dot-amber"></span>In progress</span>
+        </div>
+        <p class="cert-name">{name}</p>
+        <p class="cert-meta">Currently studying · Google Cloud</p>
+      </div>
+    ))}
+
+    {certifications.earned.map((cert) => (
+      <div class="cert-card">
+        <div class="cert-top">
+          <span class="chip"><span class="dot dot-green"></span>Completed {cert.year}</span>
+        </div>
+        <p class="cert-name">{cert.name}</p>
+        <p class="cert-meta">{cert.issuer}</p>
+        <a class="card-link" href={cert.link} target="_blank" rel="noopener">Verify ↗</a>
+      </div>
+    ))}
+
+    {Array.from({ length: slots }, (_, i) => (
+      <div class="cert-card empty" key={i}>[ earned cert placeholder ]</div>
+    ))}
+  </div>
+</section>

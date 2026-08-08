@@ -1,0 +1,90 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.role}`;
+const pageDesc = description ?? site.description;
+// Works at the site root (dev) and under the GitHub Pages base path (prod)
+const favicon = import.meta.env.BASE_URL + 'favicon.svg';
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta name="author" content={site.name} />
+    <meta name="theme-color" content="#0a0f12" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:site_name" content={site.name} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDesc} />
+
+    <link rel="icon" type="image/svg+xml" href={favicon} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Reveal-on-scroll (dependency-free)
+      const els = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && window.matchMedia('(prefers-reduced-motion: reduce)').matches === false) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.08 }
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('visible'));
+      }
+
+      // Mobile nav toggle
+      const toggle = document.querySelector('[data-nav-toggle]');
+      const links = document.querySelector('[data-nav-links]');
+      toggle?.addEventListener('click', () => {
+        links?.classList.toggle('open');
+      });
+      links?.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).tagName === 'A') links.classList.remove('open');
+      });
+    </script>
+  </body>
+</html>

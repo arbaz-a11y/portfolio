@@ -1,0 +1,34 @@
+---
+import { site } from '../config';
+
+const whoami = 'cloud_engineer_in_training';
+const focus = 'GCP · Terraform · Docker · CI/CD';
+const projects = 'vpc-setup/ docker-microservices/ github-actions-demo/';
+---
+
+<div class="terminal" aria-hidden="true">
+  <div class="terminal-bar">
+    <span class="dot t-red"></span>
+    <span class="dot t-yellow"></span>
+    <span class="dot t-green"></span>
+    <span class="terminal-title">{site.terminal} — zsh</span>
+  </div>
+  <div class="terminal-body">
+    <div class="term-line">
+      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd">whoami</span>
+    </div>
+    <div class="term-line"><span class="term-out">{whoami}</span></div>
+    <div class="term-line">
+      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd">cat focus.txt</span>
+    </div>
+    <div class="term-line"><span class="term-out">{focus}</span></div>
+    <div class="term-line">
+      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd">ls projects/</span>
+    </div>
+    <div class="term-line"><span class="term-out hl">{projects}</span></div>
+    <div class="term-line">
+      <span class="term-prompt">{site.terminal}:~$</span>
+      <span class="term-cursor"></span>
+    </div>
+  </div>
+</div>
