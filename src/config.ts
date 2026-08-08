@@ -18,7 +18,7 @@ export const site = {
   availability: 'Open to internships & collabs · remote worldwide',
   email: 'arbazkhazi250@gmail.com',
   github: 'https://github.com/arbaz-a11y',
-  linkedin: 'https://linkedin.com/in/your-username', // TODO: add your LinkedIn
+  linkedin: 'https://www.linkedin.com/in/arbazkhazi/',
   resume: `${basePath}resume.pdf`, // drop your PDF at public/resume.pdf
   // Used for SEO + social cards
   description:
