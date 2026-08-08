@@ -9,20 +9,20 @@
 const basePath = import.meta.env.BASE_URL;
 
 export const site = {
-  name: 'Your Name', // TODO: your full name
-  terminal: 'you@devbox', // prompt shown in the hero terminal
+  name: 'Arbaz khaz', // TODO: confirm spelling (GitHub handle looks like "Khazi")
+  terminal: 'arbaz@devbox', // prompt shown in the hero terminal
   role: 'Cloud & DevOps Engineer',
   tagline: 'Second-year student building cloud infrastructure that actually deploys.',
   location: 'Your City, Your Country', // TODO
-  timezone: 'Your TZ', // e.g. 'IST'
+  timezone: 'IST', // TODO: confirm
   availability: 'Open to internships & collabs · remote worldwide',
-  email: 'you@example.com', // TODO
-  github: 'https://github.com/your-username', // TODO
-  linkedin: 'https://linkedin.com/in/your-username', // TODO
+  email: 'arbazkhazi250@gmail.com',
+  github: 'https://github.com/arbazkhazi', // TODO: confirm your GitHub URL
+  linkedin: 'https://linkedin.com/in/your-username', // TODO: add your LinkedIn
   resume: `${basePath}resume.pdf`, // drop your PDF at public/resume.pdf
   // Used for SEO + social cards
   description:
-    `${'Your Name'} — second-year Cloud & DevOps engineer building cloud infrastructure, automation, and CI/CD pipelines.`,
+    'Arbaz khaz — second-year Cloud & DevOps engineer building cloud infrastructure, automation, and CI/CD pipelines.',
 };
 
 // Ordered nav links (one-page anchors)
