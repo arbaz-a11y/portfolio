@@ -3,7 +3,7 @@ title: "Deploying a Flask App on GCP Cloud Run"
 group: "cloud"
 description: "A small Flask app deployed on GCP Cloud Run, provisioned with Terraform and locked down with IAM."
 tags: ["GCP", "Cloud Run", "Terraform", "IAM"]
-github: "https://github.com/your-username/flask-cloud-run"
+github: "https://github.com/arbaz-a11y/flask-cloud-run"
 myWork: "Designed the architecture, wrote the Terraform, wired up IAM and a cost budget."
 status: "in-progress"
 featured: true
