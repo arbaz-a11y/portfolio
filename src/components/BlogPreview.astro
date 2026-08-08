@@ -18,7 +18,7 @@ const fmt = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year
     <p>Notes from building — writing as I learn.</p>
   </div>
 
-  <div class="post-list">
+  <div class="post-list reveal reveal-group">
     {
       posts.map((post) => (
         <a class="post-card" href={`${base}blog/${post.id}/`}>

@@ -1,0 +1,39 @@
+---
+import { site } from '../config';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// Terminal-framed portrait. Drop a real photo at public/portrait.png and it
+// appears automatically on the next deploy; until then a monogram placeholder
+// keeps the layout looking finished.
+const base = import.meta.env.BASE_URL;
+const PORTRAIT = 'portrait.png';
+const hasPortrait = existsSync(fileURLToPath(new URL(`../../public/${PORTRAIT}`, import.meta.url)));
+const initials = site.name
+  .split(' ')
+  .map((w) => w[0] ?? '')
+  .join('');
+---
+
+<div class="portrait" aria-hidden="true">
+  <div class="portrait-frame">
+    <div class="portrait-bar">
+      <span class="dot t-red"></span>
+      <span class="dot t-yellow"></span>
+      <span class="dot t-green"></span>
+      <span class="portrait-title">~/portrait.png</span>
+    </div>
+
+    {hasPortrait ? (
+      <div class="portrait-media">
+        <img class="portrait-img" src={`${base}${PORTRAIT}`} alt="" width="680" height="850" loading="lazy" />
+      </div>
+    ) : (
+      <div class="portrait-media portrait-ph">
+        <span class="portrait-mono">$ portrait.png</span>
+        <span class="portrait-initials">{initials}</span>
+        <span class="portrait-note">add public/portrait.png</span>
+      </div>
+    )}
+  </div>
+</div>

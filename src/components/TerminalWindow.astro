@@ -6,7 +6,7 @@ const focus = 'GCP · Terraform · Docker · CI/CD';
 const projects = 'vpc-setup/ docker-microservices/ github-actions-demo/';
 ---
 
-<div class="terminal" aria-hidden="true">
+<div class="terminal" data-terminal aria-hidden="true">
   <div class="terminal-bar">
     <span class="dot t-red"></span>
     <span class="dot t-yellow"></span>
@@ -15,20 +15,60 @@ const projects = 'vpc-setup/ docker-microservices/ github-actions-demo/';
   </div>
   <div class="terminal-body">
     <div class="term-line">
-      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd">whoami</span>
+      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd" data-type>whoami</span>
     </div>
-    <div class="term-line"><span class="term-out">{whoami}</span></div>
+    <div class="term-line" data-out><span class="term-out">{whoami}</span></div>
     <div class="term-line">
-      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd">cat focus.txt</span>
+      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd" data-type>cat focus.txt</span>
     </div>
-    <div class="term-line"><span class="term-out">{focus}</span></div>
+    <div class="term-line" data-out><span class="term-out">{focus}</span></div>
     <div class="term-line">
-      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd">ls projects/</span>
+      <span class="term-prompt">{site.terminal}:~$</span> <span class="term-cmd" data-type>ls projects/</span>
     </div>
-    <div class="term-line"><span class="term-out hl">{projects}</span></div>
+    <div class="term-line" data-out><span class="term-out hl">{projects}</span></div>
     <div class="term-line">
       <span class="term-prompt">{site.terminal}:~$</span>
       <span class="term-cursor"></span>
     </div>
   </div>
+  <div class="terminal-status">
+    <span class="dot dot-green"></span>
+    all systems operational · {site.location}
+  </div>
 </div>
+
+<script>
+  // Typewriter effect — reveals each command char-by-char, then fades in its output.
+  // Skipped entirely when the visitor prefers reduced motion.
+  const term = document.querySelector<HTMLElement>('[data-terminal]');
+  if (term && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cmds = Array.from(term.querySelectorAll<HTMLElement>('[data-type]'));
+    const outs = Array.from(term.querySelectorAll<HTMLElement>('[data-out]'));
+    const PAUSE = 260;
+    let delay = 1000; // wait for the hero entrance to finish first
+    let active: HTMLElement | null = null;
+
+    term.classList.add('typing');
+
+    cmds.forEach((cmd, i) => {
+      const n = cmd.textContent?.length ?? 1;
+      const dur = Math.max(220, n * 80);
+      cmd.style.setProperty('--n', String(n));
+      cmd.style.setProperty('--t', `${dur}ms`);
+
+      window.setTimeout(() => {
+        active?.classList.remove('typing');
+        cmd.classList.add('typing');
+        active = cmd;
+        window.setTimeout(() => outs[i]?.classList.add('shown'), dur + PAUSE);
+      }, delay);
+
+      delay += dur + PAUSE * 1.6;
+    });
+
+    window.setTimeout(() => {
+      term.classList.remove('typing');
+      term.classList.add('done');
+    }, delay);
+  }
+</script>

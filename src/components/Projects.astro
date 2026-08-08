@@ -25,7 +25,7 @@ const byGroup = (key: string) =>
       return (
         <div class="group">
           <h3 class="group-label">{group.label}</h3>
-          <div class="grid-2">
+          <div class="grid-2 reveal reveal-group">
             {items.map((p) => <ProjectCard project={p} />)}
           </div>
         </div>
