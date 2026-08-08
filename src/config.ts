@@ -13,8 +13,8 @@ export const site = {
   terminal: 'arbaz@devbox', // prompt shown in the hero terminal
   role: 'Cloud & DevOps Engineer',
   tagline: 'Second-year student building cloud infrastructure that actually deploys.',
-  location: 'Your City, Your Country', // TODO
-  timezone: 'IST', // TODO: confirm
+  location: 'Hubballi, India',
+  timezone: 'Asia/Kolkata',
   availability: 'Open to internships & collabs · remote worldwide',
   email: 'arbazkhazi250@gmail.com',
   github: 'https://github.com/arbaz-a11y',
