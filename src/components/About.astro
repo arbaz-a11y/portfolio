@@ -1,5 +1,6 @@
 ---
 import { about } from '../config';
+import PortraitCard from './PortraitCard.astro';
 ---
 
 <section class="section container reveal" id="about">
@@ -7,7 +8,11 @@ import { about } from '../config';
   <div class="section-head">
     <h2>About Me</h2>
   </div>
-  <div class="prose">
-    {about.map((p) => <p>{p}</p>)}
+
+  <div class="about-grid">
+    <div class="about-visual"><PortraitCard /></div>
+    <div class="prose">
+      {about.map((p) => <p>{p}</p>)}
+    </div>
   </div>
 </section>
