@@ -14,6 +14,8 @@ const projects = defineCollection({
     // What *you* personally did on this project
     myWork: z.string(),
     metrics: z.string().optional(),
+    // Future work / where the project is heading (shown on the card)
+    roadmap: z.string().optional(),
     status: z.enum(['deployed', 'in-progress']).default('in-progress'),
     featured: z.boolean().default(false),
     date: z.coerce.date(),

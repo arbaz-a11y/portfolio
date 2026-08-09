@@ -866,6 +866,34 @@ h3 {
   gap: 0.45rem;
 }
 
+/* Honest "in development" placeholder for project groups with no work yet */
+.coming-soon {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  color: var(--muted);
+}
+.coming-soon p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Empty state for the blog when there are no published posts */
+.empty-state {
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-state p {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+}
+
 .card-link {
   font-family: var(--font-mono);
   font-size: 0.8rem;

@@ -23,6 +23,8 @@ const statusDot = d.status === 'deployed' ? 'dot-green' : 'dot-amber';
 
   {d.metrics && <p class="mywork"><strong>Impact:</strong> {d.metrics}</p>}
 
+  {d.roadmap && <p class="mywork roadmap"><strong>Future:</strong> {d.roadmap}</p>}
+
   <div class="card-tags">
     {d.tags.map((tag) => <span class="chip">{tag}</span>)}
   </div>

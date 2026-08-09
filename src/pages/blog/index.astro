@@ -18,19 +18,28 @@ const base = import.meta.env.BASE_URL;
   </header>
 
   <div class="container" style="padding-bottom:4rem">
-    <div class="post-list">
-      {
-        posts.map((post) => (
-          <a class="post-card" href={`${base}blog/${post.id}/`}>
-            <span class="date">{fmt.format(post.data.pubDate)}</span>
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
-            <div class="card-tags">
-              {post.data.tags.map((tag) => <span class="chip">{tag}</span>)}
-            </div>
-          </a>
-        ))
-      }
-    </div>
+    {
+      posts.length > 0 ? (
+        <div class="post-list">
+          {
+            posts.map((post) => (
+              <a class="post-card" href={`${base}blog/${post.id}/`}>
+                <span class="date">{fmt.format(post.data.pubDate)}</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <div class="card-tags">
+                  {post.data.tags.map((tag) => <span class="chip">{tag}</span>)}
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p class="eyebrow" style="color:var(--accent)">no posts yet</p>
+          <p>First post coming soon — writing about the build, not just the outcome.</p>
+        </div>
+      )
+    }
   </div>
 </BaseLayout>

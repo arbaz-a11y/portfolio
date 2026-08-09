@@ -21,13 +21,21 @@ const byGroup = (key: string) =>
   {
     projectGroups.map((group) => {
       const items = byGroup(group.key);
-      if (items.length === 0) return null;
       return (
         <div class="group">
           <h3 class="group-label">{group.label}</h3>
-          <div class="grid-2 reveal reveal-group">
-            {items.map((p) => <ProjectCard project={p} />)}
-          </div>
+          {
+            items.length > 0 ? (
+              <div class="grid-2 reveal reveal-group">
+                {items.map((p) => <ProjectCard project={p} />)}
+              </div>
+            ) : (
+              <div class="coming-soon reveal">
+                <span class="chip"><span class="dot dot-amber"></span>In development</span>
+                <p>{group.comingSoon}</p>
+              </div>
+            )
+          }
         </div>
       );
     })

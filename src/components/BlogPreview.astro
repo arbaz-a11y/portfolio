@@ -18,19 +18,30 @@ const fmt = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year
     <p>Notes from building — writing as I learn.</p>
   </div>
 
-  <div class="post-list reveal reveal-group">
-    {
-      posts.map((post) => (
-        <a class="post-card" href={`${base}blog/${post.id}/`}>
-          <span class="date">{fmt.format(post.data.pubDate)}</span>
-          <h3>{post.data.title}</h3>
-          <p>{post.data.description}</p>
-        </a>
-      ))
-    }
-  </div>
+  {
+    posts.length > 0 ? (
+      <>
+        <div class="post-list reveal reveal-group">
+          {
+            posts.map((post) => (
+              <a class="post-card" href={`${base}blog/${post.id}/`}>
+                <span class="date">{fmt.format(post.data.pubDate)}</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </a>
+            ))
+          }
+        </div>
 
-  <p style="margin-top:1.75rem">
-    <a class="card-link" href={`${base}blog/`}>All posts →</a>
-  </p>
+        <p style="margin-top:1.75rem">
+          <a class="card-link" href={`${base}blog/`}>All posts →</a>
+        </p>
+      </>
+    ) : (
+      <div class="empty-state">
+        <p class="eyebrow" style="color:var(--accent)">no posts yet</p>
+        <p>First post coming soon — writing about the build, not just the outcome.</p>
+      </div>
+    )
+  }
 </section>

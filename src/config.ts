@@ -15,7 +15,8 @@ export const site = {
   tagline: 'Second-year student building cloud infrastructure that actually deploys.',
   location: 'Hubballi, India',
   timezone: 'Asia/Kolkata',
-  availability: 'Open to internships & collabs · remote worldwide',
+  availability: 'Open to internships & collabs · remote worldwide', // shown in Contact
+  heroStatus: 'Building · Learning · Deploying', // status pill shown in the hero
   email: 'arbazkhazi250@gmail.com',
   github: 'https://github.com/arbaz-a11y',
   linkedin: 'https://www.linkedin.com/in/arbazkhazi/',
@@ -42,9 +43,9 @@ export const about = [
 
 // Project groups — the 3 theme groups (best work first)
 export const projectGroups = [
-  { key: 'cloud', label: 'Cloud & Infrastructure' },
-  { key: 'ci-cd', label: 'Automation & CI/CD' },
-  { key: 'exploratory', label: 'Exploratory Builds' },
+  { key: 'cloud', label: 'Cloud & Infrastructure', comingSoon: 'A real GCP deployment with Terraform is in the works.' },
+  { key: 'ci-cd', label: 'Automation & CI/CD', comingSoon: 'A pipeline that deploys on every push is next.' },
+  { key: 'exploratory', label: 'Exploratory Builds', comingSoon: 'More side-builds are on the way.' },
 ] as const;
 
 // Certifications
