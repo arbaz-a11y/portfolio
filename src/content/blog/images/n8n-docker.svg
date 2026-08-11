@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace">
+  <defs>
+    <pattern id="dots2" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#38bdf8" opacity="0.12"/>
+    </pattern>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b6b78"/>
+    </marker>
+    <marker id="a2b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <!-- window -->
+  <rect x="16" y="16" width="928" height="470" rx="12" fill="#0f1418" stroke="#33404a" stroke-width="1.5"/>
+  <rect x="16" y="16" width="928" height="40" rx="12" fill="#181f26"/>
+  <rect x="16" y="52" width="928" height="10" fill="#181f26"/>
+  <line x1="16" y1="56" x2="944" y2="56" stroke="#232c34" stroke-width="1.5"/>
+  <circle cx="40" cy="36" r="6" fill="#ff5f57"/>
+  <circle cx="60" cy="36" r="6" fill="#febc2e"/>
+  <circle cx="80" cy="36" r="6" fill="#28c840"/>
+  <text x="480" y="42" text-anchor="middle" fill="#8b97a3" font-size="13">n8n — docker run</text>
+
+  <rect x="16" y="56" width="928" height="430" fill="url(#dots2)"/>
+
+  <!-- terminal lines -->
+  <text x="44" y="92" fill="#44e2cd" font-size="13">$</text>
+  <text x="60" y="92" fill="#8b97a3" font-size="13">docker volume create n8n_data</text>
+  <text x="44" y="116" fill="#44e2cd" font-size="13">$</text>
+  <text x="60" y="116" fill="#8b97a3" font-size="13">docker run -p 5678:5678 -v n8n_data:/home/node/.n8n n8nio/n8n</text>
+  <text x="44" y="140" fill="#4ade80" font-size="13">▶ Workflow editor running at http://localhost:5678</text>
+
+  <!-- host / port -->
+  <rect x="90" y="232" width="150" height="52" rx="10" fill="#12181e" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="165" y="260" text-anchor="middle" fill="#38bdf8" font-size="12">localhost:5678</text>
+  <text x="165" y="276" text-anchor="middle" fill="#5b6b78" font-size="10">your browser</text>
+  <line x1="242" y1="258" x2="326" y2="258" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#a2b)"/>
+  <text x="284" y="248" text-anchor="middle" fill="#5b6b78" font-size="10">publish port</text>
+
+  <!-- container -->
+  <rect x="330" y="200" width="270" height="160" rx="12" fill="#12181e" stroke="#33404a" stroke-width="1.5"/>
+  <text x="465" y="242" text-anchor="middle" fill="#dee3e8" font-size="24" font-weight="600">n8n</text>
+  <text x="465" y="270" text-anchor="middle" fill="#8b97a3" font-size="12">node-based workflow engine</text>
+  <text x="465" y="292" text-anchor="middle" fill="#5b6b78" font-size="11">editor + API on :5678</text>
+  <circle cx="452" cy="336" r="4" fill="#4ade80"/>
+  <text x="465" y="341" text-anchor="middle" fill="#4ade80" font-size="11">running · container</text>
+
+  <!-- volume -->
+  <ellipse cx="165" cy="360" rx="60" ry="13" fill="#181f26" stroke="#33404a" stroke-width="1.5"/>
+  <path d="M105 360 L105 398 A60 13 0 0 0 225 398 L225 360" fill="#12181e" stroke="#33404a" stroke-width="1.5"/>
+  <text x="165" y="392" text-anchor="middle" fill="#44e2cd" font-size="12">n8n_data</text>
+  <line x1="330" y1="372" x2="226" y2="392" stroke="#5b6b78" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#a2)"/>
+  <text x="270" y="404" text-anchor="middle" fill="#5b6b78" font-size="10">volume mount</text>
+
+  <!-- service spine -->
+  <line x1="670" y1="180" x2="670" y2="366" stroke="#33404a" stroke-width="2"/>
+  <line x1="600" y1="292" x2="666" y2="292" stroke="#5b6b78" stroke-width="1.5" marker-end="url(#a2)"/>
+  <text x="634" y="284" text-anchor="middle" fill="#5b6b78" font-size="10">⇄</text>
+
+  <!-- services -->
+  <rect x="700" y="180" width="120" height="46" rx="10" fill="#12181e" stroke="#33404a" stroke-width="1.5"/>
+  <circle cx="718" cy="203" r="4" fill="#f87171"/>
+  <text x="732" y="208" fill="#dee3e8" font-size="13">Gmail</text>
+
+  <rect x="700" y="250" width="120" height="46" rx="10" fill="#12181e" stroke="#33404a" stroke-width="1.5"/>
+  <circle cx="718" cy="273" r="4" fill="#fbbf24"/>
+  <text x="732" y="278" fill="#dee3e8" font-size="13">Slack</text>
+
+  <rect x="700" y="320" width="120" height="46" rx="10" fill="#12181e" stroke="#33404a" stroke-width="1.5"/>
+  <circle cx="718" cy="343" r="4" fill="#38bdf8"/>
+  <text x="732" y="348" fill="#dee3e8" font-size="13">Telegram</text>
+
+  <line x1="674" y1="203" x2="696" y2="203" stroke="#5b6b78" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="674" y1="273" x2="696" y2="273" stroke="#5b6b78" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="674" y1="343" x2="696" y2="343" stroke="#5b6b78" stroke-width="1.5" marker-end="url(#a2)"/>
+
+  <text x="480" y="452" text-anchor="middle" fill="#8b97a3" font-size="12">1500+ integrations — the workflow decides which ones</text>
+</svg>
