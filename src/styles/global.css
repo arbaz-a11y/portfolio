@@ -39,6 +39,36 @@
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Theme transition */
+  color-scheme: dark;
+}
+
+/* Light theme */
+:root[data-theme="light"] {
+  /* Surfaces */
+  --bg: #fafbfc;
+  --bg-2: #f4f6f8;
+  --surface: #ffffff;
+  --surface-2: #f8f9fa;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Text */
+  --text: #0f172a;
+  --text-dim: #334155;
+  --muted: #64748b;
+  --faint: #94a3b8;
+
+  /* Accents stay vibrant */
+  --accent: #0ea5e9;
+  --accent-2: #14b8a6;
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --accent-soft: rgba(14, 165, 233, 0.1);
+
+  color-scheme: light;
 }
 
 /* --------------------------------------------------------------------------

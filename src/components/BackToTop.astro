@@ -1,0 +1,104 @@
+---
+// Back to Top button - appears when scrolling down
+---
+
+<button
+  class="back-to-top"
+  data-back-to-top
+  aria-label="Back to top"
+  title="Scroll to top"
+>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
+</button>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.3s var(--ease);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .back-to-top:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    transform: translateY(-4px) scale(1);
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+  }
+
+  .back-to-top:active {
+    transform: translateY(-2px) scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    .back-to-top {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>
+
+<script>
+  function initBackToTop() {
+    const button = document.querySelector('[data-back-to-top]') as HTMLButtonElement;
+    if (!button) return;
+
+    // Show/hide based on scroll position
+    function updateVisibility() {
+      const scrolled = window.scrollY;
+      const threshold = 300; // Show after scrolling 300px
+
+      if (scrolled > threshold) {
+        button.classList.add('visible');
+      } else {
+        button.classList.remove('visible');
+      }
+    }
+
+    // Smooth scroll to top
+    button.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Update on scroll
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+
+    // Initial check
+    updateVisibility();
+  }
+
+  // Run on page load
+  initBackToTop();
+
+  // Re-run after view transitions
+  document.addEventListener('astro:after-swap', initBackToTop);
+</script>

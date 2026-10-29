@@ -6,9 +6,11 @@ import '@fontsource/inter/700.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
+import '../styles/enhancements.css';
 
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
 import { site } from '../config';
 
 interface Props {
@@ -21,6 +23,7 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.
 const pageDesc = description ?? site.description;
 // Works at the site root (dev) and under the GitHub Pages base path (prod)
 const favicon = import.meta.env.BASE_URL + 'favicon.svg';
+const ogImage = new URL(import.meta.env.BASE_URL + 'og-image.svg', Astro.site || 'http://localhost:4321');
 const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
 ---
 
@@ -41,14 +44,48 @@ const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${site.name} — ${site.role}`} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={`${site.name} — ${site.role}`} />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": site.name,
+      "jobTitle": site.role,
+      "url": canonicalUrl?.toString() || site.github,
+      "sameAs": [
+        site.github,
+        site.linkedin
+      ],
+      "email": site.email,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": site.location
+      }
+    })} />
 
     <link rel="icon" type="image/svg+xml" href={favicon} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <!-- Prevent FOUC: load theme before render -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
@@ -57,6 +94,7 @@ const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null
       <slot />
     </main>
     <Footer />
+    <BackToTop />
     <script>
       // Reveal-on-scroll (dependency-free)
       const els = document.querySelectorAll('.reveal');

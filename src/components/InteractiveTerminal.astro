@@ -1,0 +1,234 @@
+---
+// Interactive Terminal component with command execution
+import { site } from '../config';
+
+const commands = {
+  whoami: 'cloud_engineer_in_training',
+  focus: 'GCP · Terraform · Docker · CI/CD',
+  projects: 'messmate/ portfolio-cicd/ vpc-setup/',
+  skills: 'Python | JavaScript | Docker | Kubernetes | Terraform | GCP | CI/CD',
+  location: site.location,
+};
+---
+
+<div class="interactive-terminal" data-interactive-terminal>
+  <div class="terminal-bar">
+    <span class="dot t-red"></span>
+    <span class="dot t-yellow"></span>
+    <span class="dot t-green"></span>
+    <span class="terminal-title">{site.terminal} — interactive shell</span>
+  </div>
+
+  <div class="terminal-body" data-terminal-output>
+    <div class="term-line">
+      <span class="term-out comment"># Welcome! Try: help, skills, projects, clear</span>
+    </div>
+  </div>
+
+  <div class="terminal-input-row">
+    <span class="term-prompt">{site.terminal}:~$</span>
+    <input
+      type="text"
+      class="terminal-input"
+      data-terminal-input
+      placeholder="Type a command..."
+      autocomplete="off"
+      spellcheck="false"
+    />
+  </div>
+</div>
+
+<style>
+  .interactive-terminal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s var(--ease);
+  }
+
+  .interactive-terminal:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(56, 189, 248, 0.15);
+  }
+
+  .terminal-body {
+    padding: 1rem;
+    min-height: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+  }
+
+  .terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    outline: none;
+  }
+
+  .terminal-input::placeholder {
+    color: var(--faint);
+  }
+
+  .term-out.comment {
+    color: var(--faint);
+    font-style: italic;
+  }
+
+  .term-out.success {
+    color: var(--green);
+  }
+
+  .term-out.error {
+    color: var(--red);
+  }
+
+  .term-line {
+    margin-bottom: 0.5rem;
+  }
+
+  .term-line:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Smooth scroll for terminal output */
+  .terminal-body {
+    scroll-behavior: smooth;
+  }
+
+  /* Command history styling */
+  .term-cmd-echo {
+    color: var(--accent);
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  const terminal = document.querySelector('[data-interactive-terminal]') as HTMLElement;
+  const output = document.querySelector('[data-terminal-output]') as HTMLElement;
+  const input = document.querySelector('[data-terminal-input]') as HTMLInputElement;
+
+  if (terminal && output && input) {
+    const commands: Record<string, string | (() => string)> = {
+      help: 'Available commands: whoami, skills, projects, location, focus, github, clear',
+      whoami: 'cloud_engineer_in_training',
+      skills: 'Python | JavaScript | Django | Docker | Kubernetes | Terraform | GCP | GitHub Actions',
+      projects: 'MessMate · Portfolio CI/CD · GCP Infrastructure',
+      location: 'Hubballi, India (IST)',
+      focus: 'GCP · Terraform · Docker · CI/CD · Infrastructure as Code',
+      github: () => {
+        window.open('https://github.com/arbaz-a11y', '_blank');
+        return '→ Opening GitHub profile...';
+      },
+      linkedin: () => {
+        window.open('https://www.linkedin.com/in/arbazkhazi/', '_blank');
+        return '→ Opening LinkedIn profile...';
+      },
+      date: () => new Date().toLocaleString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        dateStyle: 'full',
+        timeStyle: 'short'
+      }),
+      clear: () => {
+        output.innerHTML = '<div class="term-line"><span class="term-out comment"># Terminal cleared</span></div>';
+        return '';
+      },
+    };
+
+    const commandHistory: string[] = [];
+    let historyIndex = -1;
+
+    function addOutput(text: string, type: 'normal' | 'error' | 'success' | 'comment' = 'normal') {
+      const line = document.createElement('div');
+      line.className = 'term-line';
+
+      const span = document.createElement('span');
+      span.className = `term-out ${type !== 'normal' ? type : ''}`;
+      span.textContent = text;
+
+      line.appendChild(span);
+      output.appendChild(line);
+
+      // Scroll to bottom
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function executeCommand(cmd: string) {
+      const trimmed = cmd.trim().toLowerCase();
+
+      // Echo command
+      const cmdLine = document.createElement('div');
+      cmdLine.className = 'term-line';
+      cmdLine.innerHTML = `<span class="term-prompt">arbaz@devbox:~$</span> <span class="term-cmd-echo">${cmd}</span>`;
+      output.appendChild(cmdLine);
+
+      if (!trimmed) {
+        return;
+      }
+
+      // Execute
+      if (trimmed in commands) {
+        const result = commands[trimmed];
+        const outputText = typeof result === 'function' ? result() : result;
+
+        if (outputText) {
+          addOutput(outputText, trimmed === 'clear' ? 'comment' : 'normal');
+        }
+      } else {
+        addOutput(`Command not found: ${trimmed}. Type 'help' for available commands.`, 'error');
+      }
+
+      // Add to history
+      commandHistory.unshift(cmd);
+      historyIndex = -1;
+    }
+
+    // Handle input
+    input.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        const cmd = input.value;
+        if (cmd.trim()) {
+          executeCommand(cmd);
+          input.value = '';
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          input.value = commandHistory[historyIndex] || '';
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          historyIndex--;
+          input.value = commandHistory[historyIndex] || '';
+        } else {
+          historyIndex = -1;
+          input.value = '';
+        }
+      }
+    });
+
+    // Focus input when clicking terminal
+    terminal.addEventListener('click', () => {
+      input.focus();
+    });
+  }
+</script>

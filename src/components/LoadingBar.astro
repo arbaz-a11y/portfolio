@@ -1,0 +1,65 @@
+---
+// Loading indicator for page transitions (optional, for future enhancement)
+// Shows during navigation if using Astro's View Transitions
+---
+
+<div class="loading-bar" data-loading-bar aria-hidden="true"></div>
+
+<style>
+  .loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease);
+    z-index: 9999;
+    opacity: 0;
+  }
+
+  .loading-bar.active {
+    opacity: 1;
+    animation: loading 1.5s ease-in-out infinite;
+  }
+
+  @keyframes loading {
+    0% {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    50% {
+      transform: scaleX(0.6);
+      transform-origin: left;
+    }
+    51% {
+      transform: scaleX(0.6);
+      transform-origin: right;
+    }
+    100% {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+  }
+</style>
+
+<script>
+  // Show loading bar during page transitions
+  function initLoadingBar() {
+    const bar = document.querySelector('[data-loading-bar]') as HTMLElement;
+    if (!bar) return;
+
+    // For future: integrate with Astro View Transitions or fetch events
+    document.addEventListener('astro:before-preparation', () => {
+      bar.classList.add('active');
+    });
+
+    document.addEventListener('astro:after-swap', () => {
+      bar.classList.remove('active');
+    });
+  }
+
+  initLoadingBar();
+</script>

@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 //
@@ -13,6 +14,11 @@ import { defineConfig } from 'astro/config';
 // To preview the subpath build locally:
 //   BASE_PATH=/portfolio/ SITE_URL=https://yourname.github.io npm run build
 export default defineConfig({
-  site: process.env.SITE_URL || undefined,
+  site: process.env.SITE_URL || 'https://arbaz-a11y.github.io',
   base: process.env.BASE_PATH || '/',
+  integrations: [sitemap()],
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  compressHTML: true,
 });
